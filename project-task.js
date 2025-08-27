@@ -48,6 +48,8 @@ function getAdoptionFee(animalName) {
 }
 // Main program
 console.log("Welcome to the Pet Shelter System");
+
+
 while (true) {
     let action = readlineSync.question("Choose an action: 'add', 'fee', or 'exit': ").toLowerCase();
     if (action === "exit") {
@@ -57,17 +59,24 @@ while (true) {
     if (action === "add") {
         let animal = readlineSync.question("Enter the animal's name: ");
         let fee = Number(readlineSync.question("Enter the adoption fee: "));
-        addAnimal(animal, fee);
-        console.log(`${animal} added with a fee of $${fee}.`);
+        try {
+            addAnimal(animal, fee);
+            console.log(`${animal} added with a fee of $${fee}.`);
+        } catch (err) {
+            console.log("Invalid animal name or adoption fee!");
+        }        
+
     } else if (action === "fee") {
         let animal = readlineSync.question("Enter the animal's name to find its adoption fee: ");
-        console.log(`${animal}'s adoption fee is $${getAdoptionFee(animal)}.`);
+        try {
+            console.log(`${animal}'s adoption fee is $${getAdoptionFee(animal)}.`);
+        } catch (err) {
+            console.log("Animal not found in records!");
+        }
     } else {
         console.log("Invalid action. Please choose 'add', 'fee', or 'exit'.");
     }
 }
-
-
 
 /*
 Problems to Solve
